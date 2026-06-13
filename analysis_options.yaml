@@ -1,0 +1,15 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    - always_declare_return_types
+    - avoid_dynamic_calls
+    - avoid_unused_constructor_parameters
+    - avoid_void_async
+    - cancel_subscriptions
+    - directives_ordering
+    - package_api_docs
+    - prefer_const_constructors
+    - prefer_const_declarations
+    - sort_constructors_first
+    - unawaited_futures

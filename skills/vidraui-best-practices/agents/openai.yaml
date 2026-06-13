@@ -1,0 +1,3 @@
+display_name: VidraUI Best Practices
+short_description: Build Flutter apps with VidraUI components, tokens, overlays, and accessibility rules.
+default_prompt: Use VidraUI best practices to build or review this Flutter UI without Material/Cupertino components.
