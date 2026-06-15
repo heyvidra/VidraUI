@@ -42,7 +42,8 @@ class VCollapsible extends StatefulWidget {
   State<VCollapsible> createState() => _VCollapsibleState();
 }
 
-class _VCollapsibleState extends State<VCollapsible> with SingleTickerProviderStateMixin {
+class _VCollapsibleState extends State<VCollapsible>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _animation;
   late bool _internalExpanded;
@@ -58,13 +59,15 @@ class _VCollapsibleState extends State<VCollapsible> with SingleTickerProviderSt
       vsync: this,
     );
     _controller.addStatusListener((status) {
-      if (status == AnimationStatus.dismissed || status == AnimationStatus.completed) {
+      if (status == AnimationStatus.dismissed ||
+          status == AnimationStatus.completed) {
         if (mounted) setState(() {});
       }
     });
     _animation = CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeInOut, // Curve is overridden dynamically in didChangeDependencies
+      curve: Curves
+          .easeInOut, // Curve is overridden dynamically in didChangeDependencies
     );
 
     if (_isExpanded) {
@@ -138,110 +141,106 @@ class _VCollapsibleState extends State<VCollapsible> with SingleTickerProviderSt
           ),
         },
         child: Semantics(
-        expanded: isExpanded,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Header click trigger
-            VInteractive(
-              enabled: true,
-              onTap: _toggle,
-              focusNode: _focusNode,
-              requestFocusOnTap: false,
-              builder: (context, states) {
-                final focused = states.contains(WidgetState.focused);
-                final headerBg = tokens.headerBackground.resolve(states);
-                final headerFg = tokens.headerForeground.resolve(states);
-                final headerBorderColor = tokens.headerBorder.resolve(states);
-
-                final focusShadow = focused
-                    ? [
-                        BoxShadow(
-                          color: tokens.focusRing.withValues(alpha: 0.45),
-                          blurRadius: 0,
-                          spreadRadius: 2,
-                        ),
-                      ]
-                    : <BoxShadow>[];
-
-                return Container(
-                  padding: tokens.headerPadding,
-                  decoration: BoxDecoration(
-                    color: headerBg,
-                    border: Border(
-                      bottom: BorderSide(color: headerBorderColor),
-                    ),
-                    boxShadow: focusShadow,
-                  ),
-                  child: Row(
-                    children: [
-                      // Smooth rotating arrow indicator
-                      if (widget.indicatorAtStart) ...[
-                        AnimatedRotation(
-                          turns: isExpanded ? 0.25 : 0.0,
-                          duration: theme.motion.normal.duration,
-                          curve: theme.motion.normal.curve,
-                          child: VIconTheme(
-                            data: VIconThemeData(
-                              color: widget.indicatorColor ?? headerFg,
-                              size: 14,
-                            ),
-                            child: const Text('▶', style: TextStyle(fontSize: 10, height: 1)),
+          expanded: isExpanded,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Header click trigger
+              VInteractive(
+                enabled: true,
+                onTap: _toggle,
+                focusNode: _focusNode,
+                requestFocusOnTap: false,
+                builder: (context, states) {
+                  final focused = states.contains(WidgetState.focused);
+                  final headerBg = tokens.headerBackground.resolve(states);
+                  final headerFg = tokens.headerForeground.resolve(states);
+                  final headerBorderColor = tokens.headerBorder.resolve(states);
+                  final indicatorColor = widget.indicatorColor ?? headerFg;
+                  final focusShadow = focused
+                      ? [
+                          BoxShadow(
+                            color: tokens.focusRing.withValues(alpha: 0.45),
+                            blurRadius: 0,
+                            spreadRadius: 2,
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                      ],
-                      Expanded(
-                        child: DefaultTextStyle(
-                          style: theme.typography.body.copyWith(
-                            color: headerFg,
-                            fontWeight: theme.typography.label.fontWeight,
-                          ),
-                          child: widget.header,
-                        ),
+                        ]
+                      : <BoxShadow>[];
+
+                  return Container(
+                    padding: tokens.headerPadding,
+                    decoration: BoxDecoration(
+                      color: headerBg,
+                      border: Border(
+                        bottom: BorderSide(color: headerBorderColor),
                       ),
-                      if (!widget.indicatorAtStart) ...[
-                        const SizedBox(width: 8),
-                        AnimatedRotation(
-                          turns: isExpanded ? 0.25 : 0.0,
-                          duration: theme.motion.normal.duration,
-                          curve: theme.motion.normal.curve,
-                          child: VIconTheme(
-                            data: VIconThemeData(
-                              color: widget.indicatorColor ?? headerFg,
-                              size: 14,
+                      boxShadow: focusShadow,
+                    ),
+                    child: Row(
+                      children: [
+                        // Smooth rotating arrow indicator
+                        if (widget.indicatorAtStart) ...[
+                          AnimatedRotation(
+                            turns: isExpanded ? 0.25 : 0.0,
+                            duration: theme.motion.normal.duration,
+                            curve: theme.motion.normal.curve,
+                            child: Text('▶',
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    height: 1,
+                                    color: indicatorColor)),
+                          ),
+                          const SizedBox(width: 8),
+                        ],
+                        Expanded(
+                          child: DefaultTextStyle(
+                            style: theme.typography.body.copyWith(
+                              color: headerFg,
+                              fontWeight: theme.typography.label.fontWeight,
                             ),
-                            child: const Text('▶', style: TextStyle(fontSize: 10, height: 1)),
+                            child: widget.header,
                           ),
                         ),
+                        if (!widget.indicatorAtStart) ...[
+                          const SizedBox(width: 8),
+                          AnimatedRotation(
+                            turns: isExpanded ? 0.25 : 0.0,
+                            duration: theme.motion.normal.duration,
+                            curve: theme.motion.normal.curve,
+                            child: Text('▶',
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    height: 1,
+                                    color: indicatorColor)),
+                          ),
+                        ],
                       ],
-                    ],
-                  ),
-                );
-              },
-            ),
+                    ),
+                  );
+                },
+              ),
 
-            // Performance height clip size transition
-            SizeTransition(
-              sizeFactor: _animation,
-              axis: Axis.vertical,
-              alignment: Alignment.topCenter,
-              child: ClipRect(
-                child: Container(
-                  height: (isExpanded || !_animation.isDismissed) ? null : 0,
-                  padding: tokens.bodyPadding,
-                  color: tokens.bodyBackground,
-                  child: widget.child,
+              // Performance height clip size transition
+              SizeTransition(
+                sizeFactor: _animation,
+                axis: Axis.vertical,
+                alignment: Alignment.topCenter,
+                child: ClipRect(
+                  child: Container(
+                    height: (isExpanded || !_animation.isDismissed) ? null : 0,
+                    padding: tokens.bodyPadding,
+                    color: tokens.bodyBackground,
+                    child: widget.child,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 }
 
 /// An individual accordion item model inside [VAccordion].
@@ -257,8 +256,10 @@ class VAccordionItem {
   final Widget header;
   final Widget child;
   final bool initiallyExpanded;
+
   /// Controls indicator placement; true for start, false for end.
   final bool indicatorAtStart;
+
   /// Custom indicator color.
   final Color? indicatorColor;
 }
@@ -349,15 +350,15 @@ class _VAccordionState extends State<VAccordion> {
         mainAxisSize: MainAxisSize.min,
         children: List.generate(widget.items.length, (i) {
           final item = widget.items[i];
-            return VCollapsible(
-              key: ValueKey(i),
-              header: item.header,
-              expanded: _expandedStates[i],
-              onChanged: (expanded) => _handleChanged(i, expanded),
-              indicatorAtStart: item.indicatorAtStart,
-              indicatorColor: item.indicatorColor,
-              child: item.child,
-            );
+          return VCollapsible(
+            key: ValueKey(i),
+            header: item.header,
+            expanded: _expandedStates[i],
+            onChanged: (expanded) => _handleChanged(i, expanded),
+            indicatorAtStart: item.indicatorAtStart,
+            indicatorColor: item.indicatorColor,
+            child: item.child,
+          );
         }),
       ),
     );

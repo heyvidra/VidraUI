@@ -59,12 +59,12 @@ class VAccordionTokens {
       focusRing: colors.focusRing,
       radius: radii.md,
       headerPadding: EdgeInsets.symmetric(
-        horizontal: spacing.lg,   // 16.0
-        vertical: spacing.md,     // 12.0
+        horizontal: spacing.lg, // 16.0
+        vertical: spacing.md, // 12.0
       ),
       bodyPadding: EdgeInsets.symmetric(
-        horizontal: spacing.lg,   // 16.0
-        vertical: spacing.md,     // 12.0
+        horizontal: spacing.lg, // 16.0
+        vertical: spacing.md, // 12.0
       ),
     );
   }
