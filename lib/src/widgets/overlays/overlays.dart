@@ -1,6 +1,6 @@
 // Overlay widgets barrel export
 export 'v_alert_dialog.dart';
-export 'v_anchored_overlay.dart';
+export 'v_anchored_overlay.dart' show VAnchoredOverlayPlacement;
 export 'v_context_menu.dart';
 export 'v_dialog.dart';
 export 'v_menu_anchor.dart';

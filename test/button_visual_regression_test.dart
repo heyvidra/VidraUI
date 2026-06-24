@@ -1,6 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vidraui/vidraui.dart';
+// VLoadingDots is an internal primitive (not part of the public barrel).
+import 'package:vidraui/src/widgets/feedback/v_progress.dart'
+    show VLoadingDots;
 
 void main() {
   testWidgets('VButton variants render correctly (like example)',

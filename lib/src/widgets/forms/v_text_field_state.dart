@@ -35,7 +35,7 @@ class _VTextFieldState extends State<VTextField>
     super.initState();
     _stableContextMenuBuilder = _buildContextMenuWidget;
     _selectionGestureDetectorBuilder =
-        _VTextFieldSelectionGestureDetectorBuilder(state: this);
+        TextSelectionGestureDetectorBuilder(delegate: this);
     _attachControllerAndFocus();
   }
 

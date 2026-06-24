@@ -129,11 +129,13 @@ class _VDatePickerState extends State<VDatePicker> {
                 size: VControlSize.sm,
                 semanticLabel: 'Previous month',
                 onPressed: _prevMonth,
-                child: Text(
-                  '◂',
-                  style: TextStyle(
-                    color: tokens.navigationForeground,
-                    fontSize: tokens.navigationIconSize,
+                child: ExcludeSemantics(
+                  child: Text(
+                    '◂',
+                    style: TextStyle(
+                      color: tokens.navigationForeground,
+                      fontSize: tokens.navigationIconSize,
+                    ),
                   ),
                 ),
               ),
@@ -151,11 +153,13 @@ class _VDatePickerState extends State<VDatePicker> {
                 size: VControlSize.sm,
                 semanticLabel: 'Next month',
                 onPressed: _nextMonth,
-                child: Text(
-                  '▸',
-                  style: TextStyle(
-                    color: tokens.navigationForeground,
-                    fontSize: tokens.navigationIconSize,
+                child: ExcludeSemantics(
+                  child: Text(
+                    '▸',
+                    style: TextStyle(
+                      color: tokens.navigationForeground,
+                      fontSize: tokens.navigationIconSize,
+                    ),
                   ),
                 ),
               ),

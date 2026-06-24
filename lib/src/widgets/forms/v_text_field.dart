@@ -11,7 +11,6 @@ import '../selection/v_text_selection_controls.dart';
 import '../selection/v_text_selection_menu.dart';
 
 part 'v_text_field_context_menu.dart';
-part 'v_text_field_selection.dart';
 part 'v_text_field_state.dart';
 
 // ---------------------------------------------------------------------------

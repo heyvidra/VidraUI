@@ -86,7 +86,7 @@ class VMotionSpec with Diagnosticable {
   /// Interpolates between two motion specs.
   static VMotionSpec lerp(VMotionSpec a, VMotionSpec b, double t) {
     return VMotionSpec(
-      duration: _lerpDuration(a.duration, b.duration, t),
+      duration: lerpDuration(a.duration, b.duration, t),
       curve: t < 0.5 ? a.curve : b.curve,
       reverseDuration: _lerpNullableDuration(
         a.reverseDuration,
@@ -97,21 +97,13 @@ class VMotionSpec with Diagnosticable {
     );
   }
 
-  static Duration _lerpDuration(Duration a, Duration b, double t) {
-    return Duration(
-      microseconds:
-          (a.inMicroseconds + (b.inMicroseconds - a.inMicroseconds) * t)
-              .round(),
-    );
-  }
-
   static Duration? _lerpNullableDuration(
     Duration? a,
     Duration? b,
     double t,
   ) {
     if (a == null && b == null) return null;
-    return _lerpDuration(a ?? b!, b ?? a!, t);
+    return lerpDuration(a ?? b!, b ?? a!, t);
   }
 
   @override
@@ -174,10 +166,6 @@ class VMotion with Diagnosticable {
 
   /// Default VidraUI motion tokens.
   factory VMotion.defaults() => const VMotion();
-
-  /// Backwards-compatible alias for [defaults].
-  @Deprecated('Use VMotion.defaults() instead')
-  factory VMotion.defaultMotion() => VMotion.defaults();
 
   static const Duration _zeroDuration = Duration.zero;
 

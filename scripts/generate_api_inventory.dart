@@ -5,10 +5,12 @@ void main() {
   final exportedFiles = _resolveExports(root);
   final symbols = <_Symbol>[];
 
-  for (final file in exportedFiles) {
-    final text = file.readAsStringSync();
-    final library = file.path.replaceFirst('${root.path}/', '');
-    symbols.addAll(_parseSymbols(text, library));
+  for (final entry in exportedFiles.entries) {
+    final text = entry.key.readAsStringSync();
+    final library = entry.key.path.replaceFirst('${root.path}/', '');
+    symbols.addAll(
+      _parseSymbols(text, library).where((s) => entry.value.allows(s.name)),
+    );
   }
 
   symbols.sort((a, b) => a.name.compareTo(b.name));
@@ -43,28 +45,85 @@ void main() {
   );
 }
 
-Set<File> _resolveExports(Directory root) {
-  final seen = <String>{};
-  final files = <File>{};
+/// Resolves the public export graph, honoring `show`/`hide` clauses with the
+/// same union-across-paths semantics Dart uses for re-exports: a symbol is
+/// public if at least one export edge reaching its file permits it.
+Map<File, _ExportFilter> _resolveExports(Directory root) {
+  final visited = <String>{};
+  final filters = <String, _ExportFilter>{};
+  final fileByPath = <String, File>{};
+  final edge = RegExp(r"export\s+'([^']+)'(?:\s+(show|hide)\s+([^;]+))?;");
 
   void visit(File file) {
     final canonical = file.absolute.path;
-    if (!seen.add(canonical)) return;
+    if (!visited.add(canonical)) return;
 
     final text = file.readAsStringSync();
-    for (final match in RegExp(r"export\s+'([^']+)';").allMatches(text)) {
-      final target = match.group(1)!;
-      final child = File('${file.parent.path}/$target').absolute;
-      if (!child.existsSync()) continue;
-      if (child.path.endsWith('.dart')) {
-        files.add(child);
-        visit(child);
-      }
+    for (final match in edge.allMatches(text)) {
+      // Normalize so a file reached via different relative paths (e.g.
+      // 'app/../foundation/x.dart') resolves to one canonical key — otherwise
+      // it gets parsed twice and emits duplicate map keys.
+      final child = File(
+        File('${file.parent.path}/${match.group(1)!}')
+            .absolute
+            .uri
+            .normalizePath()
+            .toFilePath(),
+      );
+      if (!child.existsSync() || !child.path.endsWith('.dart')) continue;
+      final names = match.group(3) == null
+          ? const <String>{}
+          : match
+              .group(3)!
+              .split(',')
+              .map((s) => s.trim())
+              .where((s) => s.isNotEmpty)
+              .toSet();
+      final filter = _ExportFilter(
+        show: match.group(2) == 'show' ? names : null,
+        hide: match.group(2) == 'hide' ? names : null,
+      );
+      final key = child.path;
+      fileByPath[key] = child;
+      filters[key] =
+          filters.containsKey(key) ? filters[key]!.merge(filter) : filter;
+      visit(child);
     }
   }
 
   visit(File('${root.path}/lib/vidraui.dart'));
-  return files;
+  return {for (final e in filters.entries) fileByPath[e.key]!: e.value};
+}
+
+/// Per-file gate of which top-level symbols a set of export edges exposes.
+class _ExportFilter {
+  const _ExportFilter({this.show, this.hide});
+
+  final Set<String>? show;
+  final Set<String>? hide;
+
+  bool get _allowsAll => show == null && hide == null;
+
+  bool allows(String name) {
+    if (_allowsAll) return true;
+    if (show != null) return show!.contains(name);
+    return !hide!.contains(name);
+  }
+
+  /// Union semantics: the result allows a symbol if either edge does.
+  _ExportFilter merge(_ExportFilter other) {
+    if (_allowsAll || other._allowsAll) return const _ExportFilter();
+    if (show != null && other.show != null) {
+      return _ExportFilter(show: {...show!, ...other.show!});
+    }
+    if (hide != null && other.hide != null) {
+      return _ExportFilter(hide: hide!.intersection(other.hide!));
+    }
+    // One show, one hide: allowed unless hidden AND not explicitly shown.
+    final shown = show ?? other.show!;
+    final hidden = hide ?? other.hide!;
+    return _ExportFilter(hide: hidden.difference(shown));
+  }
 }
 
 List<_Symbol> _parseSymbols(String text, String library) {
@@ -250,6 +309,7 @@ int _charCount(String text, String char) =>
 
 String _escape(String value) => value
     .replaceAll(r'\', r'\\')
+    .replaceAll(r'$', r'\$')
     .replaceAll("'", r"\'")
     .replaceAll('\n', r'\n');
 

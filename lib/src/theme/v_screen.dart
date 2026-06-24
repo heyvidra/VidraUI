@@ -17,9 +17,6 @@ extension VScreenContext on BuildContext {
   /// Media padding (e.g. system bars).
   EdgeInsets get vPadding => MediaQuery.paddingOf(this);
 
-  /// View padding (including keyboard when keyboardBehavior.resize).
-  EdgeInsets get vViewPadding => MediaQuery.viewPaddingOf(this);
-
   /// View insets (keyboard, system bars overlapping the app).
   EdgeInsets get vViewInsets => MediaQuery.viewInsetsOf(this);
 
@@ -33,18 +30,12 @@ extension VScreenContext on BuildContext {
   Orientation get vOrientation => MediaQuery.orientationOf(this);
 
   bool get vIsPortrait => vOrientation == Orientation.portrait;
-  bool get vIsLandscape => vOrientation == Orientation.landscape;
 
   /// Resolved breakpoint from theme.
   VBreakpoint get vBreakpoint =>
       VTheme.of(this).breakpoints.resolve(vScreenWidth);
 
-  bool get vIsXs => vBreakpoint == VBreakpoint.xs;
-  bool get vIsSmUp => vBreakpoint.index >= VBreakpoint.sm.index;
   bool get vIsMdUp => vBreakpoint.index >= VBreakpoint.md.index;
-  bool get vIsLgUp => vBreakpoint.index >= VBreakpoint.lg.index;
-  bool get vIsXlUp => vBreakpoint.index >= VBreakpoint.xl.index;
-  bool get vIsXxlUp => vBreakpoint == VBreakpoint.xxl;
 
   bool get vIsCompact => vScreenWidth < VTheme.of(this).breakpoints.md;
   bool get vIsMedium =>
