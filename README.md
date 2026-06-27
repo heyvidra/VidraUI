@@ -407,12 +407,13 @@ VidraUI is feature-complete and production-ready for evaluation. The library is 
 
 ## Contributing
 
-Contributions are welcome! Please:
-1. Follow the implementation rules in `AGENTS.md`
-2. Ensure no Material/Cupertino imports in `lib/`
-3. Add tests for new features
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for the full
+guide. In short:
+1. No Material/Cupertino imports in `lib/`
+2. Respect the `widgets → theme → foundation` dependency direction
+3. Add tests (and a demo) for new widgets
 4. Update documentation and examples
-5. Run `dart run scripts/verify.dart` before submitting PR
+5. Run `dart run scripts/verify.dart` before submitting a PR
 
 ## License
 

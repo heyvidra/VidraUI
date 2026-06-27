@@ -1,9 +1,9 @@
 name: vidraui
 description: A clean, high-performance Flutter design system and widget library built entirely on WidgetsApp, free from Material or Cupertino dependencies.
 version: 0.0.1
-homepage: https://github.com/user/vidraui
-repository: https://github.com/user/vidraui
-issue_tracker: https://github.com/user/vidraui/issues
+homepage: https://github.com/heyvidra/VidraUI
+repository: https://github.com/heyvidra/VidraUI
+issue_tracker: https://github.com/heyvidra/VidraUI/issues
 
 environment:
   sdk: ^3.6.0

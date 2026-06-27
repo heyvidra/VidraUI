@@ -1,21 +1,21 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vidraui/vidraui.dart';
 // VLoadingDots is an internal primitive (not part of the public barrel).
 import 'package:vidraui/src/widgets/feedback/v_progress.dart'
     show VLoadingDots;
+import 'package:vidraui/vidraui.dart';
 
 void main() {
   testWidgets('VButton variants render correctly (like example)',
       (tester) async {
     await tester.pumpWidget(
       VidraApp.navigator(
-        home: Padding(
-          padding: const EdgeInsets.all(16),
+        home: const Padding(
+          padding: EdgeInsets.all(16),
           child: Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: const [
+            children: [
               VButton(
                 onPressed: _noop,
                 child: VText('Primary'),
@@ -55,7 +55,6 @@ void main() {
           reason: 'Button should have width > 50');
       expect(box.size.height, greaterThan(20),
           reason: 'Button should have height > 20');
-      print('  Button size: ${box.size}');
     }
   });
 
@@ -96,10 +95,10 @@ void main() {
   testWidgets('VButton sizes render correctly', (tester) async {
     await tester.pumpWidget(
       VidraApp.navigator(
-        home: Wrap(
+        home: const Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: const [
+          children: [
             VButton(
               size: VControlSize.sm,
               onPressed: _noop,
@@ -133,10 +132,6 @@ void main() {
     // Height should increase: small < medium < large
     expect(smallBox.size.height, lessThan(mediumBox.size.height));
     expect(mediumBox.size.height, lessThan(largeBox.size.height));
-
-    print('Small height: ${smallBox.size.height}');
-    print('Medium height: ${mediumBox.size.height}');
-    print('Large height: ${largeBox.size.height}');
   });
 
   testWidgets('VButton inside VSurface renders (example pattern)',
@@ -152,10 +147,10 @@ void main() {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const VText('Variants', variant: VTextVariant.title),
-                Wrap(
+                const Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: const [
+                  children: [
                     VButton(
                       onPressed: _noop,
                       child: VText('Primary', variant: VTextVariant.label),

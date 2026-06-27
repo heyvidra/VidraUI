@@ -575,11 +575,11 @@ void main() {
 
     testWidgets('VTooltip renders in overlay on pointer hover', (tester) async {
       await tester.pumpWidget(_wrapWithHost(
-        Center(
+        const Center(
           child: VTooltip(
             message: 'Helpful tooltip',
             waitDuration: Duration.zero,
-            child: const SizedBox(
+            child: SizedBox(
               key: ValueKey('hover-target'),
               width: 80,
               height: 40,
@@ -599,11 +599,11 @@ void main() {
 
     testWidgets('VTooltip renders in overlay on long press', (tester) async {
       await tester.pumpWidget(_wrapWithHost(
-        Center(
+        const Center(
           child: VTooltip(
             message: 'Touch tooltip',
             waitDuration: Duration.zero,
-            child: const SizedBox(
+            child: SizedBox(
               key: ValueKey('touch-target'),
               width: 80,
               height: 40,
