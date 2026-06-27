@@ -18,11 +18,11 @@ pubspec.lock
 !.agents/skills/vidraui-best-practices/
 !.agents/skills/vidraui-best-practices/**
 .reasonix/
-data/
+/data/
 .impeccable/
 .cursor/
 .codegraph/
 .DS_Store
-docs/
+/docs/
 agentmemory.md
 AGENTS.md
