@@ -2,21 +2,21 @@
 
 A comprehensive Flutter design system and widget library built entirely on `WidgetsApp` — zero Material or Cupertino dependencies.
 
-VidraUI provides a complete suite of design tokens, theme infrastructure, routing adapters, overlay management, and **129 widget implementations** across 14 categories — all framework-native and accessibility-first.
+VidraUI provides a complete suite of design tokens, theme infrastructure, routing adapters, overlay management, and **100+ widget components** across 14 categories — all framework-native and accessibility-first.
 
 **Key Stats:**
-- 🎨 **129 widgets** across 14 categories
-- 🎯 **27 component token classes** + 7 foundation tokens
-- 📦 **265+ public API symbols**
+- 🎨 **100+ widgets** across 14 categories
+- 🎯 **26 component token classes** + 7 foundation token classes
+- 📦 **266 public API symbols** (209 classes, 38 enums, 19 typedefs)
 - 🚫 **Zero Material/Cupertino** dependencies in lib/
-- 📝 **32,500+ lines** of implementation code
-- ✅ **11,000+ lines** of test code (46 test files)
+- 📝 **~32,500 lines** of implementation code
+- ✅ **~10,700 lines** of test code (43 test files)
 - 🌍 **Bilingual docs** with live interactive demos
 
 ## Features
 
 - **Design tokens**: Primitive → Semantic → Component token system with code generation
-- **Theme**: `VThemeData` with `copyWith` and `lerp` for animated transitions, plus 27 component token classes
+- **Theme**: `VThemeData` with `copyWith` and `lerp` for animated transitions, plus 26 component token classes
 - **Routing**: Pluggable `VRouteAdapter` — Navigator 1.0 and Router 2.0 support with custom page transitions
 - **Overlay**: Toast, dialog, sheets, popovers, tooltips, teaching tips, and context menus via `VOverlayHost`
 - **Layout**: `VScaffold`, `VAppBar`, `VBox`, `VFlex`, `VListTile`, `VAccordion`, `VTabs`, `VResizable`, `VStickyHeader`
@@ -34,62 +34,62 @@ VidraUI provides a complete suite of design tokens, theme infrastructure, routin
 
 ## Widget Catalog
 
-VidraUI ships **129 widget implementations** organized into 14 categories:
+VidraUI ships **100+ widget components** organized into 14 categories:
 
-### Core & Layout (23 widgets)
+### Core & Layout
 - **Basic**: `VBox`, `VFlex`, `VSurface`, `VText`, `VRichText`, `VIcon`, `VDivider`, `VGestureDetector`, `VAvatar`, `VBadge`
 - **Layout**: `VScaffold`, `VAppBar`, `VSliverAppBar`, `VListTile`, `VAccordion`, `VCollapsible`, `VTabs`, `VTabBar`, `VResizable`, `VStickyHeader`
 - **Responsive**: `VResponsive`, `VBreakpoint`, grid layouts
 
-### Forms & Input (19 widgets)
+### Forms & Input
 `VTextField`, `VSelect`, `VAutoSuggestBox`, `VCheckbox`, `VRadio`, `VRadioGroup`, `VSwitch`, `VSlider`, `VSegmentedControl`, `VDatePicker`, `VTimePicker`, `VNumberBox`, `VForm`, `VFormField`, `VControlRow`
 
-### Buttons & Chips (3 widgets)
+### Buttons & Chips
 `VButton` (primary, secondary, outlined, danger variants), `VChip`, `VChevronIcon`
 
-### Overlays (15 widgets)
+### Overlays
 `VToast`, `VDialog`, `VAlertDialog`, `VSheet`, `VPopover`, `VTooltip`, `VTeachingTip`, `VMenuAnchor`, `VContextMenu`, `VOverlayHost`
 
-### Data Display (12 widgets)
+### Data Display
 `VTable`, `VScrollableList`, `VScrollableGrid`, `VCarousel`, `VTimeLine`, `VSteps`, `VPagination`, `VListNavigator`
 
-### Navigation (4 widgets)
+### Navigation
 `VNavigationBar`, `VNavigationDestination`, `VListNavigator`, `VPagination`
 
-### Scrolling (3 widgets)
+### Scrolling
 `VScrollArea`, `VScrollbar`, scroll indicators
 
-### Selection (4 widgets)
+### Selection
 `VSelectableText`, `VTextSelectionControls`, `VTextSelectionMenu`, custom text selection
 
-### Animation (13 widgets)
+### Animation
 `VAnimatedBox`, `VAnimatedVisibility`, `VAnimatedScaleFade`, `VAnimatedSlideFade`, `VAnimatedSwitcher`, `VAnimatedList`, `VStagger`, `VAnimatedText` (with 9 effects: typewriter, fade, scale, bounce, wavy, reveal, scramble, flicker)
 
-### Feedback (9 widgets)
+### Feedback
 `VProgressBar`, `VSpinner`, `VLoadingDots`, `VSkeletonBox`, `VSkeletonCircle`, `VShimmer`, `VEmptyState`, `VBadge`, `VTimeLine`
 
-### Media (3 widgets)
+### Media
 `VImage`, `VAvatar`, image caching
 
-### Interaction (3 widgets)
+### Interaction
 `VSwipeActions`, `VGestureDetector`, `VInteractive` (internal)
 
-### Theme & Appearance (15+ classes)
+### Theme & Appearance
 `VTheme`, `VAnimatedTheme`, `VAppearance`, `VAppearanceScope`, `VMotion`, `VMotionScope`, `VIconTheme`, component theme wrappers (VButtonTheme, VSelectTheme, VInputTheme, VTableTheme, etc.)
 
-### Foundation Tokens (7 classes)
+### Foundation Tokens
 `VColors`, `VTypography`, `VSpacing`, `VRadii`, `VShadows`, `VSizes`, `VMotion`
 
 ## Component Maturity
 
-| Status | Components | Count |
-| --- | --- | --- |
-| **Stable** | Core layout, buttons, text, forms, overlays, scrolling | ~50 |
-| **Beta** | Data display, navigation, pickers, advanced forms | ~45 |
-| **Experimental** | Animation effects, appearance presets, advanced interactions | ~34 |
+The library is pre-1.0 (`0.0.1`): treat the entire public API as subject to
+change until `1.0.0`. Per-component stability is not yet individually
+annotated — the public surface is locked behind an API-inventory check
+(`scripts/check_api_inventory.dart`) so unintended changes are caught, and a
+formal stability policy will accompany the first stable release.
 
 All components are:
-- ✅ Token-driven (27 component token classes)
+- ✅ Token-driven (26 component token classes)
 - ✅ Accessibility-compliant (semantics, keyboard, focus)
 - ✅ Theme-animatable (lerp support)
 - ✅ Documented with live examples
@@ -99,7 +99,7 @@ All components are:
 
 The `example/` app is the VidraUI documentation site with:
 - **Bilingual navigation** (English/Chinese)
-- **Live interactive demos** for all 129 widgets
+- **Live interactive demos** for all 100+ widgets
 - **Searchable component catalog** with API tables
 - **Extracted code snippets** from source
 - **Usage notes and best practices**
@@ -112,13 +112,13 @@ flutter run -d chrome
 
 ## Project Statistics
 
-- **129 widget implementations** across 14 categories
-- **27 component token classes** with auto-generated `fromColors`, `lerp`, and `copyWith`
+- **100+ widget components** across 14 categories
+- **26 component token classes** with auto-generated `fromColors`, `lerp`, and `copyWith`
 - **7 foundation token classes** (colors, typography, spacing, radii, shadows, sizes, breakpoints)
-- **265+ public API symbols** (classes, enums, functions)
+- **266 public API symbols** (209 classes, 38 enums, 19 typedefs)
 - **Zero Material/Cupertino dependencies** in production code
-- **100% framework-native Flutter** (WidgetsApp-based)
-- **Comprehensive test coverage** with widget tests, golden tests, and accessibility tests
+- **Framework-native Flutter** (WidgetsApp-based)
+- **Test coverage** across 43 files — widget, golden, and accessibility tests
 - **Fully documented** with inline docs and live examples for every component
 
 ## Package Structure
@@ -132,15 +132,15 @@ lib/
       semantic_tokens.dart
       spacing.dart, radii.dart, typography.dart, shadows.dart, sizes.dart
       motion.dart, state.dart, responsive.dart
-    theme/                        # Theme infrastructure (27 component tokens)
+    theme/                        # Theme infrastructure (26 component tokens)
       v_theme_data.dart
       v_theme.dart, v_animated_theme.dart
-      component_tokens/           # 27 component token classes
+      component_tokens/           # 26 component token classes
     app/                          # App shell & routing
       vidra_app.dart
       v_overlay_host.dart, v_page_route.dart
       v_route_adapter.dart, v_navigator_adapter.dart, v_router_config_adapter.dart
-    widgets/                      # 129 widget implementations
+    widgets/                      # 100+ widget components
       animation/                  # 13 animation widgets
       basic/                      # 11 basic widgets
       buttons/                    # 3 button widgets
@@ -176,7 +176,7 @@ VidraUI uses code generation for foundation tokens, component tokens, and compon
 # Foundation tokens (7 .g.dart files: colors, typography, spacing, radii, shadows, sizes, breakpoints)
 dart run scripts/generate_foundation_tokens.dart
 
-# Component tokens (fromColors/lerp/copyWith for 27 token classes)
+# Component tokens (fromColors/lerp/copyWith for 26 token classes)
 dart run scripts/generate_component_tokens.dart
 
 # Component themes (InheritedWidget wrappers for scoped token overrides)
@@ -381,7 +381,7 @@ See `example/` for the complete docs/demo site.
 VidraUI is feature-complete and production-ready for evaluation. The library is currently in pre-release (0.0.1) as we gather feedback and finalize the public API before 1.0.
 
 ### What's Working
-✅ All 129 widgets implemented and tested  
+✅ All 100+ widgets implemented and tested  
 ✅ Complete theme system with animation support  
 ✅ Full accessibility compliance  
 ✅ Zero Material/Cupertino dependencies  

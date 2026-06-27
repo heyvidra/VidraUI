@@ -145,8 +145,16 @@ class _VAutoSuggestBoxState extends State<VAutoSuggestBox> {
 
       if (!mounted || generation != _fetchGeneration) return;
       if (results != null) _applySuggestions(results);
-    } catch (e) {
-      debugPrint('Error fetching suggestions: $e');
+    } catch (e, stack) {
+      // Route the error through the app's FlutterError handler rather than
+      // printing to the console; skip stale/superseded fetches.
+      if (!mounted || generation != _fetchGeneration) return;
+      FlutterError.reportError(FlutterErrorDetails(
+        exception: e,
+        stack: stack,
+        library: 'vidraui',
+        context: ErrorDescription('while fetching async suggestions'),
+      ));
     } finally {
       if (mounted && generation == _fetchGeneration) {
         setState(() => _loading = false);
